@@ -11,60 +11,29 @@ namespace AlarmAutomation.Tests
         {
             var clockElement = driver.FindElementByName("Часы");
             Assert.IsNotNull(clockElement, "Приложение не открылось");
-            
             Console.WriteLine("Приложение 'Часы' успешно открыто!");
         }
         
         [Test]
-        public void FindAllElementsOnStartScreen()
+        public void CreateAlarmTest()
         {
+            var burgerButton = driver.FindElementByAccessibilityId("MenuButton");
+            burgerButton.Click();
+            System.Threading.Thread.Sleep(1000);
             
-            var allElements = driver.FindElementsByClassName("TextBlock");
-            Console.WriteLine($"\n=== Найдено элементов: {allElements.Count} ===\n");
+            var alarmTab = driver.FindElementByName("Будильник");
+            alarmTab.Click();
+            System.Threading.Thread.Sleep(1000);
             
-            foreach (var element in allElements)
-            {
-                try
-                {
-                    string text = element.Text;
-                    if (!string.IsNullOrEmpty(text))
-                    {
-                        Console.WriteLine($"- {text}");
-                    }
-                }
-                catch { }
-            }
-        }
-        
-        [Test]
-        public void FindMenuItems()
-        {
-            try
-            {
-                var burgerButton = driver.FindElementByAccessibilityId("NavigationToggleButton");
-                burgerButton.Click();
-            }
-            catch
-            {
-                var burgerButton = driver.FindElementByName("Переключение способа навигации");
-                burgerButton.Click();
-            }
+            var addButton = driver.FindElementByAccessibilityId("AddAlarmButton");
+            addButton.Click();
+            System.Threading.Thread.Sleep(1000);
             
-            var allElements = driver.FindElementsByClassName("TextBlock");
-            Console.WriteLine($"\n=== Элементы после открытия меню: ===\n");
+            var saveButton = driver.FindElementByAccessibilityId("PrimaryButton");
+            saveButton.Click();
+            System.Threading.Thread.Sleep(1000);
             
-            foreach (var element in allElements)
-            {
-                try
-                {
-                    string text = element.Text;
-                    if (!string.IsNullOrEmpty(text))
-                    {
-                        Console.WriteLine($"- {text}");
-                    }
-                }
-                catch { }
-            }
+            Console.WriteLine("Будильник создан");
         }
     }
 }
